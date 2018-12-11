@@ -5,9 +5,8 @@ import router from './router'
 
 Vue.config.productionTip = false
 
-if (window.sessionStorage && window.localStorage) {
-  //объекты sessionStorage и localtorage поддерживаются
-  const products = [
+if (window.sessionStorage && window.localStorage) { //check support this objects
+  const products = [ //list of products for example
     {
       id: 1,
       name: 'Frozen Yogurt',
@@ -60,8 +59,8 @@ if (window.sessionStorage && window.localStorage) {
     },
   ];
 
-  if(!localStorage.getItem ('products')) {
-    localStorage.setItem ('products', JSON.stringify(products));
+  if(!localStorage.getItem ('products')) { //check for availability of products in Storage
+    localStorage.setItem ('products', JSON.stringify(products)); //if products is not available in Storage
   }
   
   new Vue({
@@ -69,7 +68,7 @@ if (window.sessionStorage && window.localStorage) {
     render: h => h(App)
   }).$mount('#app')
 }
-else {
+else { //if browser not support LocalStorage
   const h1 = document.createElement('h1');
   document.body.appendChild(h1);
   h1.innerHTML='Sorry! SessionStorage and LocalStorage objects are not supported in your browser.';

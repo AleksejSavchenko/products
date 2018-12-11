@@ -51,32 +51,32 @@
 
     methods: {
       initialize () {
-        const products = this.products = JSON.parse(localStorage.getItem ('products'));
+        const products = this.products = JSON.parse(localStorage.getItem ('products')); // get list of products from Storage
         if(products.length > 0){
-          this.id = +products[products.length - 1].id + 1;
+          this.id = +products[products.length - 1].id + 1; //find last product and get his id + 1
         } else {
-          this.id = 1
+          this.id = 1 //if list of products is empty
         }
         
       },
       save () {
         if (this.$refs.form.validate()) {
-          const newProduct = {
+          const newProduct = { // create obj for new product
             id: this.id,
             name: this.name,
             description: this.description,
           }          
-          this.products.push(newProduct)
+          this.products.push(newProduct) //add new product to product`s array
 
           this.updateStorage()
-              .then(router.push('/'))
+              .then(router.push('/')) //redirect to table of products
         }
       },
       cancel () {
-        this.$refs.form.reset()
-        router.push('/')
+        this.$refs.form.reset() // reset old data form
+        router.push('/') // redirect to products table
       },
-      updateStorage() {
+      updateStorage() { //update data in LocalStorage
         const promise = new Promise((resolve) => {
           localStorage.removeItem ('products')
           localStorage.setItem ('products', JSON.stringify(this.products))

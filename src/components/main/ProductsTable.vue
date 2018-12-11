@@ -78,10 +78,10 @@
 
     methods: {
       initialize () {
-        this.products = JSON.parse(localStorage.getItem ('products'));
+        this.products = JSON.parse(localStorage.getItem ('products')); //get products from Storage
       },
       updateProduct(productId) {
-        router.push(`/update/${productId}`)
+        router.push(`/update/${productId}`) //make url with product id for update
       },
 
       cancelToDelete() {
@@ -89,24 +89,24 @@
         this.showModal = false
       },
 
-      modalMethodForDelete(productId){
+      modalMethodForDelete(productId){ //method for showing modal window with condition
         this.showModal = true;
         this.productIdForDelete = productId;
       },
       deleteProduct() {
         this.products.forEach((product, index) => {
           if(+product.id === +this.productIdForDelete) {
-            this.products.splice(+index, 1)
+            this.products.splice(+index, 1) //find and remove product from array of products
           }
         });
 
-        this.updateStorage().then(
+        this.updateStorage().then( //after update array of products close modal window and clean model with product id for deleting
           this.showModal = false,
           this.productIdForDelete = null
         )
       },
       updateStorage() {
-        const promise = new Promise((resolve) => {
+        const promise = new Promise((resolve) => { //update LocalStorage
           localStorage.removeItem ('products')
           localStorage.setItem ('products', JSON.stringify(this.products))
         })

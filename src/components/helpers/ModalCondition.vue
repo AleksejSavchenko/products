@@ -27,7 +27,7 @@
     data: () => ({}),
     computed: {
       dialog() {
-        return this.show
+        return this.show //get from parent component
       }
     }
   }

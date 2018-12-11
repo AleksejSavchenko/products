@@ -54,37 +54,37 @@
 
     methods: {
       initialize () {
-        const products = this.products = JSON.parse(localStorage.getItem ('products'));
-        this.productId = this.$route.params.productId;
+        const products = this.products = JSON.parse(localStorage.getItem ('products')); //get product from Storage
+        this.productId = this.$route.params.productId; //get product id from query
         
         products.forEach((product, index) => {
           if(+product.id === +this.productId) {
             this.id = product.id
             this.name = product.name
             this.description = product.description
-            this.productIndex = index;
+            this.productIndex = index; //save index for update modal of products
           }
         });
         
       },
       save () {
         if (this.$refs.form.validate()) {
-          const updatedProduct = {
+          const updatedProduct = { //make obj with updated data
             id: this.id,
             name: this.name,
             description: this.description,
           }
           
-          this.products[this.productIndex] = updatedProduct
+          this.products[this.productIndex] = updatedProduct //update modal of products
           this.updateStorage()
-              .then(router.push('/'))
+              .then(router.push('/')) //redirect to table of products
         }
       },
       cancel () {
-        this.$refs.form.reset()
-        router.push('/')
+        this.$refs.form.reset() //reset data form
+        router.push('/') // redirect to products table
       },
-      updateStorage() {
+      updateStorage() { //update data in LocalStorage
         const promise = new Promise((resolve) => {
           localStorage.removeItem ('products')
           localStorage.setItem ('products', JSON.stringify(this.products))
